@@ -1,17 +1,37 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <TodoForm @addTask="onAddTask" />
+    <TodoList :tasks="tasks" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TodoForm from './components/TodoForm.vue'
+import TodoList from './components/TodoList.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    TodoForm,
+    TodoList,
+  },
+  data() {
+    return {
+      tasks: [
+        { title: 'Task A', content: 'Description task A' },
+        { title: 'Task B', content: 'Description task B' },
+      ]
+    }
+  },
+  methods: {
+    onAddTask: function(task) {
+      this.tasks.push(task);
+    }
+  },
+  created() {
+    setTimeout(() => {
+      this.tasks[0].title = 'OUI';
+    }, 5000);
   }
 }
 </script>
@@ -24,5 +44,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+
+  display: flex;
+  flex-direction: row;
 }
 </style>
